@@ -25,6 +25,11 @@ public class MinecraftDecoder extends MessageToMessageDecoder<ByteBuf>
 
         try
         {
+            if ( in.readerIndex() == in.writerIndex() )
+            {
+                return;
+            }
+            
             int packetId = DefinedPacket.readVarInt( in );
 
             DefinedPacket packet = prot.createPacket( packetId, protocolVersion );
